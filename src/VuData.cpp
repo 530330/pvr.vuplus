@@ -222,6 +222,7 @@ Vu::Vu()
   m_writeHandle = XBMC->OpenFileForWrite(initialEPGReady.c_str(), true);
   XBMC->WriteFile(m_writeHandle, "Y", 1);
   XBMC->CloseFile(m_writeHandle);
+  m_readHandle = NULL;
   
 }
 

@@ -94,7 +94,16 @@ struct VuTimer
 
   VuTimer()
   {
+    strTitle = "";
+    strPlot = "";
+    iChannelId = 0;
+    startTime = 0;
+    endTime = 0;
+    iWeekdays = 0;
+    iEpgID = 0;
+    state = 0;
     iUpdateState = VU_UPDATE_STATE_NEW;
+    iClientIndex = 0;
   }
   
   bool like(const VuTimer &right) const

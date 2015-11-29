@@ -631,15 +631,15 @@ PVR_ERROR Vu::GetChannels(ADDON_HANDLE handle, bool bRadio)
       xbmcChannel.iUniqueId         = channel.iUniqueId;
       xbmcChannel.bIsRadio          = channel.bRadio;
       xbmcChannel.iChannelNumber    = channel.iChannelNumber;
-      strncpy(xbmcChannel.strChannelName, channel.strChannelName.c_str(), sizeof(xbmcChannel.strChannelName));
+      strncpy(xbmcChannel.strChannelName, channel.strChannelName.c_str(), sizeof(xbmcChannel.strChannelName) - 1);
       strncpy(xbmcChannel.strInputFormat, "", 0); // unused
       xbmcChannel.iEncryptionSystem = 0;
       xbmcChannel.bIsHidden         = false;
-      strncpy(xbmcChannel.strIconPath, channel.strIconPath.c_str(), sizeof(xbmcChannel.strIconPath));
+      strncpy(xbmcChannel.strIconPath, channel.strIconPath.c_str(), sizeof(xbmcChannel.strIconPath) - 1);
 
       CStdString strStream;
       strStream.Format("pvr://stream/tv/%i.ts", channel.iUniqueId);
-      strncpy(xbmcChannel.strStreamURL, strStream.c_str(), sizeof(xbmcChannel.strStreamURL)); 
+      strncpy(xbmcChannel.strStreamURL, strStream.c_str(), sizeof(xbmcChannel.strStreamURL) - 1);
 
       PVR->TransferChannelEntry(handle, &xbmcChannel);
     }
@@ -1039,9 +1039,9 @@ PVR_ERROR Vu::GetTimers(ADDON_HANDLE handle)
     tag.iClientChannelUid = timer.iChannelId;
     tag.startTime         = timer.startTime;
     tag.endTime           = timer.endTime;
-    strncpy(tag.strTitle, timer.strTitle.c_str(), sizeof(tag.strTitle));
-    strncpy(tag.strDirectory, "/", sizeof(tag.strDirectory));   // unused
-    strncpy(tag.strSummary, timer.strPlot.c_str(), sizeof(tag.strSummary));
+    strncpy(tag.strTitle, timer.strTitle.c_str(), sizeof(tag.strTitle) - 1);
+    strncpy(tag.strDirectory, "/", sizeof(tag.strDirectory) - 1);
+    strncpy(tag.strSummary, timer.strPlot.c_str(), sizeof(tag.strSummary) - 1);
     tag.state             = timer.state;
     tag.iPriority         = 0;     // unused
     tag.iLifetime         = 0;     // unused
@@ -1345,13 +1345,13 @@ void Vu::TransferRecordings(ADDON_HANDLE handle)
     VuRecording &recording = m_recordings.at(i);
     PVR_RECORDING tag;
     memset(&tag, 0, sizeof(PVR_RECORDING));
-    strncpy(tag.strRecordingId, recording.strRecordingId.c_str(), sizeof(tag.strRecordingId));
-    strncpy(tag.strTitle, recording.strTitle.c_str(), sizeof(tag.strTitle));
-    strncpy(tag.strStreamURL, recording.strStreamURL.c_str(), sizeof(tag.strStreamURL));
-    strncpy(tag.strPlotOutline, recording.strPlotOutline.c_str(), sizeof(tag.strPlotOutline));
-    strncpy(tag.strPlot, recording.strPlot.c_str(), sizeof(tag.strPlot));
-    strncpy(tag.strChannelName, recording.strChannelName.c_str(), sizeof(tag.strChannelName));
-    strncpy(tag.strIconPath, recording.strIconPath.c_str(), sizeof(tag.strIconPath));
+    strncpy(tag.strRecordingId, recording.strRecordingId.c_str(), sizeof(tag.strRecordingId) - 1);
+    strncpy(tag.strTitle, recording.strTitle.c_str(), sizeof(tag.strTitle) - 1);
+    strncpy(tag.strStreamURL, recording.strStreamURL.c_str(), sizeof(tag.strStreamURL) - 1);
+    strncpy(tag.strPlotOutline, recording.strPlotOutline.c_str(), sizeof(tag.strPlotOutline) - 1);
+    strncpy(tag.strPlot, recording.strPlot.c_str(), sizeof(tag.strPlot) - 1);
+    strncpy(tag.strChannelName, recording.strChannelName.c_str(), sizeof(tag.strChannelName) - 1);
+    strncpy(tag.strIconPath, recording.strIconPath.c_str(), sizeof(tag.strIconPath) - 1);
 
     if(IsInRecordingFolder(recording.strTitle))
       strTmp.Format("/%s/", recording.strTitle.c_str());
@@ -1359,7 +1359,7 @@ void Vu::TransferRecordings(ADDON_HANDLE handle)
       strTmp.Format("/");
 
     recording.strDirectory = strTmp;
-    strncpy(tag.strDirectory, recording.strDirectory.c_str(), sizeof(tag.strDirectory));
+    strncpy(tag.strDirectory, recording.strDirectory.c_str(), sizeof(tag.strDirectory) - 1);
     tag.recordingTime     = recording.startTime;
     tag.iDuration         = recording.iDuration;
 
@@ -1606,7 +1606,7 @@ PVR_ERROR Vu::GetChannelGroups(ADDON_HANDLE handle)
 
     tag.bIsRadio     = false;
     tag.iPosition = 0; // groups default order, unused
-    strncpy(tag.strGroupName, m_groups[iTagPtr].strGroupName.c_str(), sizeof(tag.strGroupName));
+    strncpy(tag.strGroupName, m_groups[iTagPtr].strGroupName.c_str(), sizeof(tag.strGroupName) - 1);
 
     PVR->TransferChannelGroup(handle, &tag);
   }
@@ -1650,7 +1650,7 @@ PVR_ERROR Vu::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROU
       PVR_CHANNEL_GROUP_MEMBER tag;
       memset(&tag,0 , sizeof(PVR_CHANNEL_GROUP_MEMBER));
 
-      strncpy(tag.strGroupName, group.strGroupName, sizeof(tag.strGroupName));
+      strncpy(tag.strGroupName, group.strGroupName, sizeof(tag.strGroupName) - 1);
       tag.iChannelUniqueId = myChannel.iUniqueId;
       tag.iChannelNumber   = myChannel.iChannelNumber;
 

@@ -1,3 +1,7 @@
+2.0.0
+- Bump addon for Jarvis
+- Fix Coverity warnings
+
 1.11.6
 - Updated to PVR API v4.1.0
 

@@ -1,3 +1,7 @@
+v2.4.5
+- Corrected timer start/endtime to include pre/post-margin
+- Load live-stream-URL from M3U-file
+
 v2.4.4
 - updated language files from Transifex
 
